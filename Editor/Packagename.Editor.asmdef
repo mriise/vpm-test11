@@ -1,8 +1,8 @@
 {
-    "name": "{{cookiecutter.namespace}}.Editor",
-    "rootNamespace": "{{cookiecutter.namespace}}.Editor",
+    "name": "Packagename.Editor",
+    "rootNamespace": "Packagename.Editor",
     "references": [
-        "{{cookiecutter.namespace}}.Runtime"
+        "Packagename.Runtime"
     ],
     "includePlatforms": [
         "Editor"

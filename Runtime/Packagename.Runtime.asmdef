@@ -1,6 +1,6 @@
 {
-    "name": "{{cookiecutter.namespace}}.Runtime.asmdef",
-    "rootNamespace": "{{cookiecutter.namespace}}",
+    "name": "Packagename.Runtime.asmdef",
+    "rootNamespace": "Packagename",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

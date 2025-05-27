@@ -38,10 +38,10 @@ jobs:
     
     - name: Create package archive
       run: |
-        PACKAGE_NAME="{{cookiecutter.package_name}}"
+        PACKAGE_NAME="com.yourname.packagename"
         VERSION="${GITHUB_REF#refs/tags/v}"
         if [[ -z "$VERSION" || "$VERSION" == "$GITHUB_REF" ]]; then
-          VERSION="{{cookiecutter.version}}"
+          VERSION="0.1.0"
         fi
         
         echo "Creating package: ${PACKAGE_NAME}-${VERSION}.zip"
@@ -74,8 +74,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          ${{ '{{' }} env.PACKAGE_FILE }}
-          ${{ '{{' }} env.SHA256_FILE }}
+          ${{ env.PACKAGE_FILE }}
+          ${{ env.SHA256_FILE }}
         generate_release_notes: true
       env:
-        GITHUB_TOKEN: ${{ '{{' }} secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,63 +1,44 @@
-# VPM Cookie
+# Package Display Name
 
-An open source [cookiecutter](https://github.com/cookiecutter/cookiecutter) template for VPM packages
+A VPM package
 
-## File Structure
+## Installation
 
-```text
-cookiecutter-vpm-package/
-├── cookiecutter.json
-├── hooks/
-|   └── pre_gen_project.py
-└── {{cookiecutter.package_name}}/
-    ├── package.json
-    ├── README.md
-    ├── LICENSE
-    ├── .gitignore
-    ├── Runtime/
-    │   └── {{cookiecutter.namespace}}.Runtime.asmdef
-    ├── Editor/
-    │   └── {{cookiecutter.namespace}}.Editor.asmdef
-    ├── Documentation~/
-    │   └── CHANGELOG.md
-    └── PUT_IN_GITHUB_WORKFLOWS_build-package.yml
-```
+### ALCOM
+
+1. Open ALCOM
+2. Go to Settings → Packages
+3. Add Repository: `https://github.com/yourusername/packagename`
+4. Add package to your project
+
+### Manual Installation
+
+1. Download the latest release from [Releases](https://github.com/yourusername/packagename/releases)
+2. Extract to your project's `Packages` folder
 
 ## Usage
 
-### Option A: Github Template
+<!-- Add usage instructions here -->
 
-- Copy this repo as a template
-- In new repository Actions > Replace Repository with Cookiecutter > Run Workflow
-- Fill in fields
-- Run workflow
-- Move `PUT_IN_GITHUB_WORKFLOWS_build-package.yml` to `.github/workflows/build_package.yml`. On Github web Click edit in top right, then change the filename to `.github/workflows/build_package.yml`
-- Delete `.github/workflows/eat-cookie.yml`
+## Features
 
-### Option B: Manual
+<!-- Add Features here -->
 
-Linux:
+## Requirements
 
-```bash
-# install cookiecutter ~2.5, see their readme for install instructions
-git clone https://github.com/mriise/vpm-cookie
-cd vpm-cookie
-cookiecutter -o ../ . # makes package in a sibling folder
+- Unity 2022.3 or newer
+- Package dependencies (if any)
 
-# Prompts:
-# package_name: com.myname.package
-# display_name: Shader FX Collection  
-# version: 1.0.0
-# description: Custom Avatar Addon
-# author_name: myname
-# unity_version: 2022.3
+## License
 
-mkdir -p ./.github/workflows/ && mv PUT_IN_GITHUB_WORKFLOWS_build-package.yml ./.github/workflows/ && rm .github/workflows/eat-cookie.yml
-```
+This project is licensed under MIT License - see the [LICENSE](LICENSE) file for details.
 
-#### Manual Requirements
+## Author
 
-- cookiecutter
-- python3
+**Your Name**
+- Email: your.email@example.com
+- Website: https://github.com/yourusername
 
-Template generates VPM packages with vrc-get extensions included by default (see the [WIP spec](https://github.com/vrc-get/vrc-get/blob/133b03467efb454af0ed336881e4042e60551171/docs/vpm-spec.md)).
+## Changelog
+
+See [CHANGELOG.md](Documentation~/CHANGELOG.md) for version history.
