@@ -1,0 +1,16 @@
+{
+    "package_name": "com.yourname.packagename",
+    "display_name": "Package Display Name",
+    "version": "0.1.0",
+    "description": "A VPM package",
+    "author_name": "Your Name",
+    "author_email": "your.email@example.com",
+    "author_url": "https://github.com/yourusername",
+    "unity_version": "2022.3",
+    "namespace": "{{ cookiecutter.package_name.split('.')[-1].replace('-', '').title() }}",
+    "license": ["MIT", "Apache-2.0", "GPL-3.0", "Custom"],
+    "repo_url": "{{ cookiecutter.author_url }}/{{ cookiecutter.package_name.split('.')[-1] }}",
+    "_copy_without_render": [
+        "*.meta"
+    ]
+}

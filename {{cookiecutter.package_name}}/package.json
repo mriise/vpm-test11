@@ -1,0 +1,20 @@
+{
+    "name": "{{cookiecutter.package_name}}",
+    "version": "{{cookiecutter.version}}",
+    "displayName": "{{cookiecutter.display_name}}",
+    "description": "{{cookiecutter.description}}",
+    "unity": "{{cookiecutter.unity_version}}",
+    "author": {
+        "name": "{{cookiecutter.author_name}}"{% if cookiecutter.author_email %},
+        "email": "{{cookiecutter.author_email}}"{% endif %}{% if cookiecutter.author_url %},
+        "url": "{{cookiecutter.author_url}}"{% endif %}
+    },
+    "changelogUrl": "{{cookiecutter.repo_url}}/blob/main/Documentation~/CHANGELOG.md",
+    "documentationUrl": "{{cookiecutter.repo_url}}/blob/main/README.md",
+    "licensesUrl": "{{cookiecutter.repo_url}}/blob/main/LICENSE",
+    "vpmDependencies": {},
+    "legacyPackages": [],
+    "vrc-get": {
+        "aliases": []
+    },
+}

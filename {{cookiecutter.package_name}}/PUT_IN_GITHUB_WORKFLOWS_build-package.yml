@@ -1,0 +1,81 @@
+name: Build VPM Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    # - name: Setup .NET
+    #   uses: actions/setup-dotnet@v3
+    #   with:
+    #     dotnet-version: '6.0.x'
+    
+    # - name: Install vrc-get
+    #   run: |
+    #     curl -L https://github.com/vrc-get/vrc-get/releases/latest/download/vrc-get-linux-x64.tar.gz | tar -xz
+    #     sudo mv vrc-get /usr/local/bin/
+    #     vrc-get --version
+    
+    - name: Validate package manifest
+      run: |
+        if [ -f package.json ]; then
+          echo "✓ package.json found"
+          cat package.json | jq . > /dev/null && echo "✓ Valid JSON" || exit 1
+        else
+          echo "✗ package.json not found"
+          exit 1
+        fi
+    
+    - name: Create package archive
+      run: |
+        PACKAGE_NAME="{{cookiecutter.package_name}}"
+        VERSION="${GITHUB_REF#refs/tags/v}"
+        if [[ -z "$VERSION" || "$VERSION" == "$GITHUB_REF" ]]; then
+          VERSION="{{cookiecutter.version}}"
+        fi
+        
+        echo "Creating package: ${PACKAGE_NAME}-${VERSION}.zip"
+        
+        # Create zip with deflate compression (not deflate64)
+        # -6 = compression level 6 (good balance of speed/size)
+        # -r = recursive
+        # -Z deflate = force deflate method (ensures compatibility)
+        zip -6 -r -Z deflate "${PACKAGE_NAME}-${VERSION}.zip" . \
+          -x "*.git*" "*.github*" "*.DS_Store" "*Thumbs.db*" \
+             "*.meta" "*.tmp" "*~" "*.log"
+        
+        # Generate SHA256
+        sha256sum "${PACKAGE_NAME}-${VERSION}.zip" > "${PACKAGE_NAME}-${VERSION}.zip.sha256"
+       
+        echo "PACKAGE_FILE=${PACKAGE_NAME}-${VERSION}.zip" >> $GITHUB_ENV
+        echo "SHA256_FILE=${PACKAGE_NAME}-${VERSION}.zip.sha256" >> $GITHUB_ENV
+
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: vpm-package
+        path: |
+          *.zip
+          *.sha256
+    
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ${{ '{{' }} env.PACKAGE_FILE }}
+          ${{ '{{' }} env.SHA256_FILE }}
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ '{{' }} secrets.GITHUB_TOKEN }}
